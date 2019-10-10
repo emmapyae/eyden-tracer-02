@@ -29,16 +29,20 @@ public:
 		float t = (m_origin - ray.org).dot(m_normal) / ray.dir.dot(m_normal);
 		if (t < Epsilon || t > ray.t) return false;
 		ray.t = t;
+		ray.hit = this;
+		// store the primitive's address in hit
 		return true;
 	}
 	
 	virtual Vec3f GetNormal(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+		return normalize(m_normal);
+		// m_normal is already normalized in the center, so
+		// we can return here
 	}
 	
 private:
-	Vec3f m_normal;	///< Point on the plane
-	Vec3f m_origin;	///< Normal to the plane
+	Vec3f m_normal;	///< Normal on the plane
+	Vec3f m_origin;	///< Point to the plane
 };

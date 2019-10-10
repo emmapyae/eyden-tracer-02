@@ -22,7 +22,12 @@ public:
 	virtual std::optional<Vec3f> Illuminate(Ray& ray) override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+		// got inspiration from https://computergraphics.stackexchange.com/questions/5166/how-to-find-light-direction-from-a-point-on-a-surface-to-an-area-light
+		Vec3f light_intensity;
+		Vec3f light_direction = m_position - ray.org; // finding light direction
+		light_intensity = m_intensity/pow(cv::norm(light_direction),2);
+		ray.dir = normalize(light_direction);
+		return normalize(light_intensity);
 	}
 
 

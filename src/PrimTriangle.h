@@ -53,14 +53,20 @@ public:
 		if (ray.t <= f || f <  Epsilon  ) return false;
 		
 		ray.t = f;
-		
+		ray.hit = this;
+		// store the primitive's address in hit
 		return true;
 	}
 
 	virtual Vec3f GetNormal(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+		/* normalize the triangle with the cross product of 
+		2 edges 
+		got inspiration from 
+		https://courses.cs.washington.edu/courses/csep557/13wi/lectures/triangle_intersection.pdf*/
+		Vec3f normal = (m_b-m_a).cross(m_c-m_a);
+		return normalize(normal);
 	}
 	
 private:
